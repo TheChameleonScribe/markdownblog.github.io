@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .post {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .post-title {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .post-date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Blog</h1>
+    <div id="blog-posts"></div>
+
+    <script>
+        // Sample blog post data (simulating JSON)
+        const blogPosts = [
+            {
+                id: 1,
+                title: "First Blog Post",
+                date: "2024-08-24",
+                content: "# Good Morning\nToday I'm just going to talk about random things, and a bunch of nothing really. I don't really want to talk about anything specific.\nHowever, I do have opinions to share, one of them being the hope of love and joy. Yehey! I love joy and love so much! It is glad, and it is wonderful! I love it so much! Love is real!\n**Good day everyone, have a nice day!**\n#Somewhere Down\nI remember well my friends who were greeted by a spooky man wearing a nice shirt. Part of the way that he behaved reminded me of something that I could barely understand. In any case, it was nice to be here!"
+            },
+            {
+                id: 2,
+                title: "Second Blog Post",
+                date: "2024-08-25",
+                content: "## Another blog post\n\nHere's some code:\n\n```javascript\nconst greeting = 'Hello, World!';\nconsole.log(greeting);\n```"
+            }
+        ];
+
+        // Sort posts by date (newest first)
+        blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Initialize Showdown converter
+        const converter = new showdown.Converter();
+
+        // Function to create a blog post element
+        function createPostElement(post) {
+            const postElement = document.createElement('div');
+            postElement.className = 'post';
+            postElement.innerHTML = `
+                <h2 class="post-title">${post.title}</h2>
+                <p class="post-date">${post.date}</p>
+                ${converter.makeHtml(post.content)}
+            `;
+            return postElement;
+        }
+
+        // Render blog posts
+        const blogPostsContainer = document.getElementById('blog-posts');
+        blogPosts.forEach(post => {
+            blogPostsContainer.appendChild(createPostElement(post));
+        });
+    </script>
+</body>
+</html>
